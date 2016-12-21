@@ -200,7 +200,17 @@
 {
     [_tabelView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section==2) {
+    if (indexPath.section==0) {
+        if (indexPath.row==0) {
+            //科协动态
+        }else{
+            //意见建议
+            MyVC * vc =[MyVC new];
+            BaseNavigationController *navController = [[BaseNavigationController alloc] initWithRootViewController:vc];
+            [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:navController animated:YES];
+        }
+        
+    }else  if (indexPath.section==2) {
         if (indexPath.row==0) {
           //用户登录
              LoginVC * vc =[LoginVC new];

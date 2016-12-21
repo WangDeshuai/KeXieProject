@@ -192,7 +192,7 @@
     .leftSpaceToView(bgView,0)
     .rightSpaceToView(bgView,0)
     .topSpaceToView(bgView,10)
-    .heightIs(30);
+    .heightIs(50);
     
     //竖线
     UIImageView * imageview =[[UIImageView alloc]init];
@@ -248,11 +248,11 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90;
+    return 100;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 42;
+    return 70;
 }
 #pragma mark --创建表头
 -(UIView*)CreatHeadView{

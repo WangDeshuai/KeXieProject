@@ -317,9 +317,11 @@
 				8F02FE691DA89AFE0051EDFC /* LIb */,
 				8F02FE481DA886D00051EDFC /* Other */,
 				8F02FE591DA887E30051EDFC /* BaseViewController */,
-				8F02FE5A1DA887F20051EDFC /* HomeViewController */,
-				8F02FE5B1DA888050051EDFC /* LeftViewController */,
-				8F02FE5C1DA8881A0051EDFC /* MyViewController */,
+				8F02FE5A1DA887F20051EDFC /* 首页 */,
+				8F02FE5B1DA888050051EDFC /* 侧滑 */,
+				8FE593351E0A21D200089809 /* 登录 */,
+				8FE593341E0A21C400089809 /* 信息审核 */,
+				8F02FE5C1DA8881A0051EDFC /* 意见建议 */,
 				8F02FE491DA886DE0051EDFC /* System */,
 				8F02FE151DA883FE0051EDFC /* Supporting Files */,
 			);
@@ -389,7 +391,7 @@
 			name = BaseViewController;
 			sourceTree = "<group>";
 		};
-		8F02FE5A1DA887F20051EDFC /* HomeViewController */ = {
+		8F02FE5A1DA887F20051EDFC /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
 				8F02FE501DA887740051EDFC /* HomeVC.h */,
@@ -397,31 +399,25 @@
 				8F2936CC1E050D3E000C7B3D /* HomeTableViewCell.h */,
 				8F2936CD1E050D3E000C7B3D /* HomeTableViewCell.m */,
 			);
-			name = HomeViewController;
+			name = "首页";
 			sourceTree = "<group>";
 		};
-		8F02FE5B1DA888050051EDFC /* LeftViewController */ = {
+		8F02FE5B1DA888050051EDFC /* 侧滑 */ = {
 			isa = PBXGroup;
 			children = (
 				8F02FE531DA887B40051EDFC /* ScanCodeVC.h */,
 				8F02FE541DA887B40051EDFC /* ScanCodeVC.m */,
 			);
-			name = LeftViewController;
+			name = "侧滑";
 			sourceTree = "<group>";
 		};
-		8F02FE5C1DA8881A0051EDFC /* MyViewController */ = {
+		8F02FE5C1DA8881A0051EDFC /* 意见建议 */ = {
 			isa = PBXGroup;
 			children = (
 				8F02FE561DA887CC0051EDFC /* MyVC.h */,
 				8F02FE571DA887CC0051EDFC /* MyVC.m */,
-				8FEE77B11E092E1A0051DAA6 /* MessageShenHeVC.h */,
-				8FEE77B21E092E1A0051DAA6 /* MessageShenHeVC.m */,
-				8FEE77B41E09316E0051DAA6 /* MessageShenHeCell.h */,
-				8FEE77B51E09316E0051DAA6 /* MessageShenHeCell.m */,
-				8FEE77AE1E0913690051DAA6 /* LoginVC.h */,
-				8FEE77AF1E0913690051DAA6 /* LoginVC.m */,
 			);
-			name = MyViewController;
+			name = "意见建议";
 			sourceTree = "<group>";
 		};
 		8F02FE691DA89AFE0051EDFC /* LIb */ = {
@@ -635,6 +631,26 @@
 				8FCD4F781DA8B4D300CB113C /* TAPageControl.m */,
 			);
 			path = PageControl;
+			sourceTree = "<group>";
+		};
+		8FE593341E0A21C400089809 /* 信息审核 */ = {
+			isa = PBXGroup;
+			children = (
+				8FEE77B11E092E1A0051DAA6 /* MessageShenHeVC.h */,
+				8FEE77B21E092E1A0051DAA6 /* MessageShenHeVC.m */,
+				8FEE77B41E09316E0051DAA6 /* MessageShenHeCell.h */,
+				8FEE77B51E09316E0051DAA6 /* MessageShenHeCell.m */,
+			);
+			name = "信息审核";
+			sourceTree = "<group>";
+		};
+		8FE593351E0A21D200089809 /* 登录 */ = {
+			isa = PBXGroup;
+			children = (
+				8FEE77AE1E0913690051DAA6 /* LoginVC.h */,
+				8FEE77AF1E0913690051DAA6 /* LoginVC.m */,
+			);
+			name = "登录";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
