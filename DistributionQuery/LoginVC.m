@@ -140,7 +140,24 @@
 }
 
 -(void)logintClick{
-    [LCProgressHUD showMessage:@"登录成功了"];
+    [LCProgressHUD showLoading:@"登录中..."];
+    [Engine  usetLoginAccount:_phoneText.text Password:_pwdText.text success:^(NSDictionary *dic) {
+        NSString * item1 =[NSString stringWithFormat:@"%@",[dic objectForKey:@"code"]];
+        if ([item1 isEqualToString:@"1"]) {
+            NSDictionary * content =[dic objectForKey:@"content"];
+            NSDictionary *userInfo =[content objectForKey:@"userInfo"];
+            [NSUSE_DEFO setObject:[NSString stringWithFormat:@"%@",[userInfo objectForKey:@"id"]] forKey:@"token"];
+            [NSUSE_DEFO synchronize];//把ID 存为token
+            [LCProgressHUD showMessage:[dic objectForKey:@"msg"]];
+            [self backPopBtnPop];//返回首页
+        }else{
+            [LCProgressHUD showMessage:[dic objectForKey:@"msg"]];
+        }
+    } error:^(NSError *error) {
+        
+    }];
+    
+
 }
 
 /*

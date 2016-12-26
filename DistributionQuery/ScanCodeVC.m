@@ -223,9 +223,15 @@
             //通讯录
         }else{
             //信息审核
-            MessageShenHeVC * vc =[MessageShenHeVC new];
-            BaseNavigationController *navController = [[BaseNavigationController alloc] initWithRootViewController:vc];
-            [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:navController animated:YES];
+            if ([ToolClass isLogin]==YES) {
+                MessageShenHeVC * vc =[MessageShenHeVC new];
+                BaseNavigationController *navController = [[BaseNavigationController alloc] initWithRootViewController:vc];
+                [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:navController animated:YES];
+            }else{
+                //没登录进入登录界面
+                LoginVC * vc =[LoginVC new];
+                [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:vc animated:YES];
+            }
         }
     }
     

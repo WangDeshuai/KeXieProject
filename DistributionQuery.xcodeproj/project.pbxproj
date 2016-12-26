@@ -30,6 +30,9 @@
 		8F02FE8F1DA89F890051EDFC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F02FE8E1DA89F890051EDFC /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8F2936CE1E050D3E000C7B3D /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2936CD1E050D3E000C7B3D /* HomeTableViewCell.m */; };
 		8F2936D11E05257D000C7B3D /* DDMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F2936D01E05257D000C7B3D /* DDMenuController.m */; };
+		8F9BB37F1E11019400BCB0C6 /* LrdOutputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9BB37E1E11019400BCB0C6 /* LrdOutputView.m */; };
+		8F9BB3821E11022F00BCB0C6 /* AboutMeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9BB3811E11022F00BCB0C6 /* AboutMeVC.m */; };
+		8F9BB3851E11032D00BCB0C6 /* ToolClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9BB3841E11032D00BCB0C6 /* ToolClass.m */; };
 		8FCD4F111DA8A13100CB113C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCD4F101DA8A13100CB113C /* libsqlite3.tbd */; };
 		8FCD4F131DA8A13A00CB113C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCD4F121DA8A13A00CB113C /* libz.tbd */; };
 		8FCD4F151DA8A14800CB113C /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FCD4F141DA8A14800CB113C /* libstdc++.tbd */; };
@@ -156,6 +159,12 @@
 		8F2936CD1E050D3E000C7B3D /* HomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewCell.m; sourceTree = "<group>"; };
 		8F2936CF1E05257D000C7B3D /* DDMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMenuController.h; sourceTree = "<group>"; };
 		8F2936D01E05257D000C7B3D /* DDMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMenuController.m; sourceTree = "<group>"; };
+		8F9BB37D1E11019400BCB0C6 /* LrdOutputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LrdOutputView.h; sourceTree = "<group>"; };
+		8F9BB37E1E11019400BCB0C6 /* LrdOutputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LrdOutputView.m; sourceTree = "<group>"; };
+		8F9BB3801E11022F00BCB0C6 /* AboutMeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMeVC.h; sourceTree = "<group>"; };
+		8F9BB3811E11022F00BCB0C6 /* AboutMeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMeVC.m; sourceTree = "<group>"; };
+		8F9BB3831E11032D00BCB0C6 /* ToolClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolClass.h; sourceTree = "<group>"; };
+		8F9BB3841E11032D00BCB0C6 /* ToolClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolClass.m; sourceTree = "<group>"; };
 		8FCD4F101DA8A13100CB113C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		8FCD4F121DA8A13A00CB113C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		8FCD4F141DA8A14800CB113C /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -357,6 +366,8 @@
 		8F02FE481DA886D00051EDFC /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				8F9BB3831E11032D00BCB0C6 /* ToolClass.h */,
+				8F9BB3841E11032D00BCB0C6 /* ToolClass.m */,
 				8F2936CF1E05257D000C7B3D /* DDMenuController.h */,
 				8F2936D01E05257D000C7B3D /* DDMenuController.m */,
 				8F02FE181DA883FE0051EDFC /* AppDelegate.h */,
@@ -394,10 +405,14 @@
 		8F02FE5A1DA887F20051EDFC /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
+				8F9BB37D1E11019400BCB0C6 /* LrdOutputView.h */,
+				8F9BB37E1E11019400BCB0C6 /* LrdOutputView.m */,
 				8F02FE501DA887740051EDFC /* HomeVC.h */,
 				8F02FE511DA887740051EDFC /* HomeVC.m */,
 				8F2936CC1E050D3E000C7B3D /* HomeTableViewCell.h */,
 				8F2936CD1E050D3E000C7B3D /* HomeTableViewCell.m */,
+				8F9BB3801E11022F00BCB0C6 /* AboutMeVC.h */,
+				8F9BB3811E11022F00BCB0C6 /* AboutMeVC.m */,
 			);
 			name = "首页";
 			sourceTree = "<group>";
@@ -805,8 +820,10 @@
 				8FCD4F811DA8B4D300CB113C /* AFHTTPSessionManager.m in Sources */,
 				8FEE77B61E09316E0051DAA6 /* MessageShenHeCell.m in Sources */,
 				8FEE77B31E092E1A0051DAA6 /* MessageShenHeVC.m in Sources */,
+				8F9BB3821E11022F00BCB0C6 /* AboutMeVC.m in Sources */,
 				8FCD4F8B1DA8B4D300CB113C /* SDWebImageCompat.m in Sources */,
 				8FCD4FA81DA8B4D300CB113C /* TAPageControl.m in Sources */,
+				8F9BB3851E11032D00BCB0C6 /* ToolClass.m in Sources */,
 				8F02FE871DA89F6B0051EDFC /* ASIDataDecompressor.m in Sources */,
 				8FCD4F951DA8B4D300CB113C /* UIImageView+HighlightedWebCache.m in Sources */,
 				8FCD4F901DA8B4D300CB113C /* SDWebImagePrefetcher.m in Sources */,
@@ -830,6 +847,7 @@
 				8FCD4F871DA8B4D300CB113C /* AFURLSessionManager.m in Sources */,
 				8F02FE861DA89F6B0051EDFC /* ASIDataCompressor.m in Sources */,
 				8FCD4F881DA8B4D300CB113C /* MKAnnotationView+WebCache.m in Sources */,
+				8F9BB37F1E11019400BCB0C6 /* LrdOutputView.m in Sources */,
 				8FCD4F9C1DA8B4D300CB113C /* UIImageView+AFNetworking.m in Sources */,
 				8FCD4F821DA8B4D300CB113C /* AFNetworkReachabilityManager.m in Sources */,
 				8FCD4F861DA8B4D300CB113C /* AFURLResponseSerialization.m in Sources */,

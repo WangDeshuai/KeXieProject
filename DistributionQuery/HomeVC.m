@@ -8,12 +8,16 @@
 
 #import "HomeVC.h"
 #import "HomeTableViewCell.h"
-@interface HomeVC ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
+#import "LrdOutputView.h"
+#import "AboutMeVC.h"
+@interface HomeVC ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,LrdOutputViewDelegate>
 @property(nonatomic,strong)UIView * view1;
 @property(nonatomic,strong)UIButton * lastBtn;
 @property(nonatomic,strong)UIView * lineView;
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)SDCycleScrollView * cycleScrollView;
+@property(nonatomic,strong)NSArray * menuArr;
+@property (nonatomic, strong) LrdOutputView *outputView;//搜索商品下拉菜单
 @end
 
 @implementation HomeVC
@@ -82,11 +86,45 @@
     rightBtn.frame=CGRectMake(0, 0, 40, 40);
     [rightBtn setImage:[UIImage imageNamed:@"gzdt_sz"] forState:UIControlStateNormal];
     UIBarButtonItem * rightBtn2 =[[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+     [rightBtn addTarget:self action:@selector(sheZhiBtn:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItems=@[rightBtn2];
+
+    //下拉菜单
+    LrdCellModel *one = [[LrdCellModel alloc] initWithTitle:@"关于我们" imageName:@"shezhi_us"];
+    LrdCellModel *two = [[LrdCellModel alloc] initWithTitle:@"退出登录" imageName:@"shezhi_tuichu"];
+    self.menuArr = @[one, two];
 }
-#pragma mark --dia
+#pragma mark --作按钮侧滑
 -(void)leftButton{
     [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController showLeftController:YES];
+    
+}
+#pragma mark --右按钮设置
+-(void)sheZhiBtn:(UIButton*)btn{
+    CGFloat x = btn.center.x+20;
+    CGFloat y = btn.frame.origin.y + btn.bounds.size.height + 25;
+    _outputView = [[LrdOutputView alloc] initWithDataArray:self.menuArr origin:CGPointMake(x, y) width:150 height:50 direction:kLrdOutputViewDirectionRight];
+    _outputView.alpha=.4;
+    _outputView.fount=15;
+    _outputView.delegate = self;
+    _outputView.dismissOperation = ^(){
+        //设置成nil，以防内存泄露
+        _outputView = nil;
+    };
+    [_outputView pop];
+    
+}
+
+- (void)didSelectedAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"输出看看%lu",indexPath.row);
+    if (indexPath.row==0) {
+        //关于我们
+        AboutMeVC * vc =[AboutMeVC new];
+        vc.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        //退出
+    }
     
 }
 

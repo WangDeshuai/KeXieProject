@@ -17,10 +17,11 @@
  */
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
-#define SERVICE  @"http://101.200.133.10:9089/"
+#define SER_VICE  @"http://192.168.1.103:8080/Kexie/"
 #define JXColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 #define TITLE_FOUNT 18
 #define COLOR [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1]
+#define NSUSE_DEFO  [NSUserDefaults standardUserDefaults]
 #define IOS8 [[[UIDevice currentDevice] systemVersion]floatValue]>=8.0
 /*
  *   头文件
@@ -33,7 +34,7 @@
  * 工具类
  */
 #import "Engine.h"
-
+#import "ToolClass.h"
 
 /*
  *   第三方

@@ -11,10 +11,10 @@ typedef void (^SuccessBlock)(NSDictionary*dic);
 typedef void (^ErrorBlock)(NSError*error);
 @interface Engine : NSObject
 //**********************************首页**********************//
-#pragma mark --获取首页轮播图
-+(void)getFirstImagesuccess:(SuccessBlock)aSuccess error:(ErrorBlock)aError;
+#pragma mark --1用户登录
++(void)usetLoginAccount:(NSString*)account Password:(NSString*)password success:(SuccessBlock)aSuccess error:(ErrorBlock)aError;
 
-
-
+#pragma mark --2首页接口
++(void)firstJieKouType:(NSString*)type PageIndex:(NSString*)pagee success:(SuccessBlock)aSuccess error:(ErrorBlock)aError;
 
 @end

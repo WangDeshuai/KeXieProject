@@ -7,25 +7,54 @@
 //
 
 #import "Engine.h"
-#import "ASIHTTPRequest.h"
-#import "ASIFormDataRequest.h"
+#import "AFNetworking.h"
+//#import "ASIHTTPRequest.h"
+//#import "ASIFormDataRequest.h"
 @implementation Engine
-#pragma mark --获取首页轮播图
-+(void)getFirstImagesuccess:(SuccessBlock)aSuccess error:(ErrorBlock)aError{
-    NSString * urlStr =[NSString stringWithFormat:@"%@MobileIndex/MGetNews.ashx",SERVICE];
-     NSURL * url = [NSURL URLWithString:urlStr];
-    __weak ASIFormDataRequest * req = [ASIFormDataRequest requestWithURL:url];
-    [req setCompletionBlock:^{
+#pragma mark --1用户登录
++(void)usetLoginAccount:(NSString*)account Password:(NSString*)password success:(SuccessBlock)aSuccess error:(ErrorBlock)aError{
+    
+    NSString * urlStr =[NSString stringWithFormat:@"%@login/app_auditLogin.action",SER_VICE];
+    NSMutableDictionary * dic =[NSMutableDictionary new];
+    [dic setObject:account forKey:@"account"];
+    [dic setObject:password forKey:@"password"];
+    AFHTTPRequestOperationManager * manager =[AFHTTPRequestOperationManager manager];
+    
+    [manager POST:urlStr parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:responseObject options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"1用户登录%@",str);
         
-         NSLog(@">>>%@",req.responseString);
-        NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:req.responseData options:NSJSONReadingMutableContainers error:nil];
-        aSuccess(dic);
+        aSuccess(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"1用户登录%@",error);
+        [LCProgressHUD hide];
     }];
-    [req startAsynchronous];
-    [req  setFailedBlock:^{
-         NSLog(@"失败%@",req.responseString);
+    
+    
+}
+#pragma mark --2首页接口
++(void)firstJieKouType:(NSString*)type PageIndex:(NSString*)pagee success:(SuccessBlock)aSuccess error:(ErrorBlock)aError{
+    
+    NSString * urlStr =[NSString stringWithFormat:@"%@product/app_qryProductByTypeclass.action",SER_VICE];
+    NSMutableDictionary * dic =[NSMutableDictionary new];
+    NSLog(@">>>%@>>>%@",type,pagee);
+    [dic setObject:type forKey:@"typeclass"];
+    [dic setObject:pagee forKey:@"pageIndex"];
+    [dic setObject:@"10" forKey:@"pageSize"];
+    AFHTTPRequestOperationManager * manager =[AFHTTPRequestOperationManager manager];
+    
+    [manager POST:urlStr parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSData *data = [NSJSONSerialization dataWithJSONObject:responseObject options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"2首页接口%@",str);
+        
+        aSuccess(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"2首页接口%@",error);
+        [LCProgressHUD hide];
     }];
- 
+    
 }
 
 
