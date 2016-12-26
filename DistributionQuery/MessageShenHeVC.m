@@ -8,8 +8,13 @@
 
 #import "MessageShenHeVC.h"
 #import "MessageShenHeCell.h"
+#import "MessageMdoel.h"
+#import "XiangQingVC.h"
 @interface MessageShenHeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView * tableView;
+@property(nonatomic,strong)NSMutableArray * dataArray;
+@property(nonatomic,assign)int AAA;
+@property (nonatomic, strong) MJRefreshComponent *myRefreshView;
 @end
 
 @implementation MessageShenHeVC
@@ -18,9 +23,44 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor=[UIColor whiteColor];
+    _dataArray=[NSMutableArray new];
     self.title=@"信息审核";
     [self CreatTabelView];
 }
+-(void)shujuDataPage:(NSString*)page{
+    [Engine chaXunAppWenZhangPage:page success:^(NSDictionary *dic) {
+        NSString * item1 =[NSString stringWithFormat:@"%@",[dic objectForKey:@"code"]];
+        if ([item1 isEqualToString:@"1"]) {
+            NSArray * contentArr =[dic objectForKey:@"content"];
+            NSMutableArray * array2 =[NSMutableArray new];
+            for (NSDictionary * dicc in contentArr) {
+                MessageMdoel * model =[[MessageMdoel alloc]initWithDic:dicc];
+                [array2 addObject:model];
+            }
+            
+            if (self.myRefreshView == _tableView.header) {
+                _dataArray = array2;
+                _tableView.footer.hidden = _dataArray.count==0?YES:NO;
+            }else if(self.myRefreshView == _tableView.footer){
+                [_dataArray addObjectsFromArray:array2];
+            }
+            
+            
+            [_tableView reloadData];
+            [_myRefreshView  endRefreshing];
+            
+        }else{
+            [LCProgressHUD showMessage:[dic objectForKey:@"msg"]];
+        }
+    } error:^(NSError *error) {
+        
+    }];
+}
+
+
+
+
+
 -(void)CreatTabelView{
     if (!_tableView) {
         _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight-64) style:UITableViewStylePlain];
@@ -31,17 +71,46 @@
     _tableView.backgroundColor=COLOR;
     [self.view addSubview:_tableView];
     
+    //
+    //刷新操作
+    __weak typeof (self) weakSelf =self;
+    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        NSLog(@"往下拉了");
+        _AAA=1;
+        weakSelf.myRefreshView = weakSelf.tableView.header;
+       
+        [self shujuDataPage:[NSString stringWithFormat:@"%d",_AAA]];
+    }];
+    
+    // 马上进入刷新状态
+    [_tableView.header beginRefreshing];
+    //..上拉刷新
+    _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        weakSelf.myRefreshView = weakSelf.tableView.footer;
+        NSLog(@"往上拉了加载更多");
+        _AAA=_AAA+1;
+        [self shujuDataPage:[NSString stringWithFormat:@"%d",_AAA]];
+    }];
+    _tableView.footer.hidden = YES;
+    
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return _dataArray.count;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MessageShenHeCell * cell =[MessageShenHeCell cellWithTableView:tableView CellID:[NSString stringWithFormat:@"%lu%lu",indexPath.section,indexPath.row] ];
+    cell.model=_dataArray[indexPath.row];
     return cell;
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    MessageMdoel * md =_dataArray[indexPath.row];
+    XiangQingVC * vc =[XiangQingVC new];
+    vc.tagg=2;
+    vc.messageID=md.messageID;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 70;

@@ -17,4 +17,16 @@ typedef void (^ErrorBlock)(NSError*error);
 #pragma mark --2首页接口
 +(void)firstJieKouType:(NSString*)type PageIndex:(NSString*)pagee success:(SuccessBlock)aSuccess error:(ErrorBlock)aError;
 
+
+#pragma mark --3查看科协要闻详情
++(void)chaXunXiangQingMessageID:(NSString*)idd success:(SuccessBlock)aSuccess error:(ErrorBlock)aError;
+#pragma mark --4提交建议
++(void)tijiaoMessageUserID:(NSString*)idd Title:(NSString*)title Content:(NSString*)content UserName:(NSString*)name PhoneNumber:(NSString*)phone success:(SuccessBlock)aSuccess error:(ErrorBlock)aError;
+
+#pragma mark --5查询未审核文章列表
++(void)chaXunAppWenZhangPage:(NSString*)page success:(SuccessBlock)aSuccess error:(ErrorBlock)aError;
+
+#pragma mark --6app 审核文章
++(void)appShenHeWenZhangMessageID:(NSString*)idd  ShenHeStype:(NSString*)stype success:(SuccessBlock)aSuccess error:(ErrorBlock)aError;
+
 @end

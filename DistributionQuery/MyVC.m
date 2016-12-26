@@ -156,6 +156,7 @@
     //文本框
     _phoneText=[UITextField new];
     _phoneText.placeholder=@"请准确填写";
+    _phoneText.keyboardType=UIKeyboardTypePhonePad;
     _phoneText.font=[UIFont systemFontOfSize:15];
     [view2 sd_addSubviews:@[_phoneText]];
     _phoneText.sd_layout
@@ -169,6 +170,7 @@
 //提交按钮
     UIButton * tijiaobtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [tijiaobtn setBackgroundImage:[UIImage imageNamed:@"yj_bt"] forState:0];
+    [tijiaobtn addTarget:self action:@selector(tijiaoBtn) forControlEvents:UIControlEventTouchUpInside];
     [self.view sd_addSubviews:@[tijiaobtn]];
     tijiaobtn.sd_layout
     .centerXEqualToView(self.view)
@@ -176,6 +178,35 @@
     .widthIs(560/2)
     .heightIs(45);
     
+}
+#pragma mark --提交
+-(void)tijiaoBtn{
+   /*
+    titleText;
+    titleTextView
+    nameText
+    phoneText
+    */
+    [LCProgressHUD showLoading:@"提交中..."];
+    [Engine tijiaoMessageUserID:[NSUSE_DEFO objectForKey:@"token"] Title:_titleText.text Content:_titleTextView.text UserName:_nameText.text PhoneNumber:_phoneText.text success:^(NSDictionary *dic) {
+        NSString * item1 =[NSString stringWithFormat:@"%@",[dic objectForKey:@"code"]];
+        if ([item1 isEqualToString:@"1"]) {
+             [LCProgressHUD showMessage:[dic objectForKey:@"msg"]];
+            [self backHomeFirst];
+        }else{
+            [LCProgressHUD showMessage:[dic objectForKey:@"msg"]];
+        }
+    } error:^(NSError *error) {
+        
+    }];
+    
+    
+}
+-(void)backHomeFirst{
+    HomeVC * vc =[HomeVC new];
+    BaseNavigationController *navController = [[BaseNavigationController alloc] initWithRootViewController:vc];
+    
+    [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:navController animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

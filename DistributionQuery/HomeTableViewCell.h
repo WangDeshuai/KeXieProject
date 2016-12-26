@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HomeModel.h"
 @interface HomeTableViewCell : UITableViewCell
 +(instancetype)cellWithTableView:(UITableView*)tableView CellID:(NSString*)cellID;
 @property (nonatomic,strong)UIImageView * dianImage;
+@property(nonatomic,strong)HomeModel * model;
 @end

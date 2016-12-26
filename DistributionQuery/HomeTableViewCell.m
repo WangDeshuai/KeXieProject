@@ -92,6 +92,15 @@
     
     
 }
+
+-(void)setModel:(HomeModel *)model{
+    _model=model;
+    _titleLabel.text=model.titleName;
+    _timeLabel.text=model.timeName;
+    _contentLabel.text=@"10月25日，工程师资格国际认证专家项目安排在石家庄市。刚打开了噶看过那噶看过那 ";
+    
+    
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

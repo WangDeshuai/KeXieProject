@@ -73,7 +73,7 @@
     _phoneText.placeholder=@"请输入手机号";
     _phoneText.textColor=[UIColor whiteColor];
     _phoneText.font=[UIFont systemFontOfSize:15];
-    _phoneText.keyboardType=UIKeyboardTypePhonePad;
+//    _phoneText.keyboardType=UIKeyboardTypePhonePad;
     _phoneText.leftView =[self imageViewNameStr:@"login_gl"];
     _phoneText.leftViewMode = UITextFieldViewModeAlways;
     [self.view sd_addSubviews:@[_phoneText]];

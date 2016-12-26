@@ -27,12 +27,22 @@
 }
 -(void)backPopBtnPop
 {
-    HomeVC * vc =[HomeVC new];
-    BaseNavigationController *navController = [[BaseNavigationController alloc] initWithRootViewController:vc];
     
-    [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:navController animated:YES];
+   NSString *str = [NSUSE_DEFO objectForKey:@"返回"];
+    if (str) {
+        [self.navigationController popViewControllerAnimated:YES];
+        [NSUSE_DEFO removeObjectForKey:@"返回"];
+        [NSUSE_DEFO synchronize];
+    }else{
+        HomeVC * vc =[HomeVC new];
+        BaseNavigationController *navController = [[BaseNavigationController alloc] initWithRootViewController:vc];
+        
+        [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:navController animated:YES];
+    }
     
-  //  [self.navigationController popViewControllerAnimated:YES];
+    
+   
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -10,6 +10,8 @@
 #import "HomeTableViewCell.h"
 #import "LrdOutputView.h"
 #import "AboutMeVC.h"
+#import "HomeModel.h"
+#import "XiangQingVC.h"
 @interface HomeVC ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,LrdOutputViewDelegate>
 @property(nonatomic,strong)UIView * view1;
 @property(nonatomic,strong)UIButton * lastBtn;
@@ -18,6 +20,10 @@
 @property(nonatomic,strong)SDCycleScrollView * cycleScrollView;
 @property(nonatomic,strong)NSArray * menuArr;
 @property (nonatomic, strong) LrdOutputView *outputView;//搜索商品下拉菜单
+@property(nonatomic,strong)NSMutableArray * dataArray;
+@property(nonatomic,assign)int AAA;
+@property (nonatomic, strong) MJRefreshComponent *myRefreshView;
+
 @end
 
 @implementation HomeVC
@@ -67,6 +73,7 @@
      //[self.navigationItem setTitle:@"河北省科学技术协会"];
     self.title=@"河北省科学技术协会";
     self.backHomeBtn.hidden=YES;
+    _dataArray=[NSMutableArray new];
     [self hideTabBar];
     [self CeratLeftButton];
     [self CreatTopView];
@@ -189,11 +196,56 @@
     .rightEqualToView(btn)
     .topSpaceToView(btn,5)
     .heightIs(2);
+    _AAA=1;
+    [_dataArray removeAllObjects];
+    [_tableView reloadData];
+    if (btn.tag==0) {
+        [self shujuDataType:@"001001" Page:_AAA];
+    }else if (btn.tag==1){
+         [self shujuDataType:@"001002" Page:_AAA];
+    }else{
+         [self shujuDataType:@"002002" Page:_AAA];
+    }
+    
+    
+    
     [_tableView reloadData];
     _tableView.tableHeaderView=[self CreatHeadView];
 }
 
+#pragma mark --数据解析
+-(void)shujuDataType:(NSString*)type Page:(int)page {
+    [Engine firstJieKouType:type PageIndex:[NSString stringWithFormat:@"%d",page] success:^(NSDictionary *dic) {
+        NSString * item1 =[NSString stringWithFormat:@"%@",[dic objectForKey:@"code"]];
+        if ([item1 isEqualToString:@"1"]) {
+            NSArray * contentArr =[dic objectForKey:@"content"];
+            NSMutableArray * array2 =[NSMutableArray new];
+            for (NSDictionary * dicc in contentArr) {
+                HomeModel * md =[[HomeModel alloc]initWithDic:dicc];
+                [array2 addObject:md];
+            }
 
+
+            if (self.myRefreshView == _tableView.header) {
+                _dataArray = array2;
+                _tableView.footer.hidden = _dataArray.count==0?YES:NO;
+            }else if(self.myRefreshView == _tableView.footer){
+                [_dataArray addObjectsFromArray:array2];
+            }
+
+
+            [_tableView reloadData];
+            _tableView.tableHeaderView=[self CreatHeadView];
+            [_myRefreshView  endRefreshing];
+
+        }else{
+            [LCProgressHUD showMessage:[dic objectForKey:@"msg"]];
+        }
+
+    } error:^(NSError *error) {
+
+    }];
+}
 #pragma mark --创建tableview
 -(void)CreatTableView{
     if (!_tableView) {
@@ -204,9 +256,45 @@
     _tableView.tableHeaderView=[self CreatHeadView];
     _tableView.tableFooterView=[UIView new];
     [self.view addSubview:_tableView];
+    
+    //
+        //刷新操作
+        __weak typeof (self) weakSelf =self;
+        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            NSLog(@"往下拉了");
+            _AAA=1;
+            weakSelf.myRefreshView = weakSelf.tableView.header;
+            if (_lastBtn.tag==2) {
+                 [self shujuDataType:@"002002" Page:_AAA];
+            }else if (_lastBtn.tag==1){
+                 [self shujuDataType:@"001002" Page:_AAA];
+            }else{
+                 [self shujuDataType:@"001001" Page:_AAA];
+            }
+          
+        }];
+    
+        // 马上进入刷新状态
+        [_tableView.header beginRefreshing];
+        //..上拉刷新
+        _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            weakSelf.myRefreshView = weakSelf.tableView.footer;
+            NSLog(@"往上拉了加载更多");
+            _AAA=_AAA+1;
+            if (_lastBtn.tag==2) {
+                [self shujuDataType:@"002002" Page:_AAA];
+            }else if (_lastBtn.tag==1){
+                [self shujuDataType:@"001002" Page:_AAA];
+            }else{
+                [self shujuDataType:@"001001" Page:_AAA];
+            }
+            
+        }];
+        _tableView.footer.hidden = YES;
+    
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return _dataArray.count;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -215,7 +303,7 @@
     if (indexPath.row==0) {
         cell.dianImage.hidden=NO;
     }
-    
+    cell.model=_dataArray[indexPath.row];
     return cell;
     
 }
@@ -292,6 +380,15 @@
 {
     return 70;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    HomeModel * md =_dataArray[indexPath.row];
+    XiangQingVC * vc =[XiangQingVC new];
+    vc.tagg=1;
+    vc.messageID=md.messageID;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark --创建表头
 -(UIView*)CreatHeadView{
     
@@ -305,23 +402,46 @@
     .topSpaceToView(_view1,0)
     .heightIs(225);
     
-    
-    NSArray * arr =@[@"dt_banner",@"dt_banner",@"dt_banner"];
-    NSArray * titleArr=@[@"第一张",@"第二张",@"第三张"];
+   
+    //NSArray * arr =@[@"dt_banner",@"dt_banner",@"dt_banner"];
+   // NSArray * titleArr=@[@"第一张",@"第二张",@"第三张"];
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, ScreenWidth, 450/2) delegate:self placeholderImage:[UIImage imageNamed:@"dt_banner"]];
     _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     _cycleScrollView.currentPageDotColor = [UIColor whiteColor];
-    _cycleScrollView.titlesGroup=titleArr;
+  //  _cycleScrollView.titlesGroup=titleArr;
     [view2 addSubview:_cycleScrollView];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        _cycleScrollView.imageURLStringsGroup = arr;
-    });
+  
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        _cycleScrollView.imageURLStringsGroup = arr;
+//    });
     _cycleScrollView.clickItemOperationBlock = ^(NSInteger index) {
         // NSLog(@">>>>>  %ld", (long)index);
         
     };
+    NSLog(@"看看个数%lu",_dataArray.count);
+    if (_dataArray.count==0) {
+        return view2;
+    }else{
+        if (_lastBtn.tag==2){
+            return nil;
+        }
+            NSMutableArray * arrimage =[NSMutableArray new];
+            NSMutableArray * titleAr =[NSMutableArray new];
+            for (int i =0; i<4; i++) {
+                HomeModel * md =_dataArray[i];
+                [arrimage addObject:md.urlStr];
+                [titleAr addObject:md.titleName];
+            }
+        
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                _cycleScrollView.imageURLStringsGroup = arrimage;
+            });
+             _cycleScrollView.titlesGroup=titleAr;
+    }
 
- 
+    
+    
+    
  /** 每张图片对应要显示的文字数组
     @property (nonatomic, strong) NSArray *titlesGroup;
     
@@ -347,7 +467,7 @@
   
     }
     
-  }
+}
 
 
 @end
