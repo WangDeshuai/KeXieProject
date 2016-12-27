@@ -146,8 +146,11 @@
         if ([item1 isEqualToString:@"1"]) {
             NSDictionary * content =[dic objectForKey:@"content"];
             NSDictionary *userInfo =[content objectForKey:@"userInfo"];
+            //把ID 存为token
             [NSUSE_DEFO setObject:[NSString stringWithFormat:@"%@",[userInfo objectForKey:@"id"]] forKey:@"token"];
-            [NSUSE_DEFO synchronize];//把ID 存为token
+            //用户名存上
+             [NSUSE_DEFO setObject:[NSString stringWithFormat:@"%@",[userInfo objectForKey:@"account"]] forKey:@"account"];
+            [NSUSE_DEFO synchronize];
             [LCProgressHUD showMessage:[dic objectForKey:@"msg"]];
             [self backPopBtnPop];//返回首页
         }else{

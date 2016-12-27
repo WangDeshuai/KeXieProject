@@ -88,7 +88,7 @@
   //  contentLabel.backgroundColor=[UIColor redColor];
     contentLabel.text=@"萨拉垃圾发电看了GV克里斯GV卡拉卡打卡看吧的vavasaafa萨拉垃圾发电看了GV克里斯GV卡拉卡打卡看吧的vavasaafa萨拉垃圾发电看了GV克里斯GV卡拉卡打卡看吧的vavasaafa";
     contentLabel.alpha=.6;
-   contentLabel.editable=NO;
+    contentLabel.editable=NO;
     contentLabel.font=[UIFont systemFontOfSize:15];
     [view2 sd_addSubviews:@[contentLabel]];
     contentLabel.sd_layout
@@ -104,7 +104,7 @@
             HomeModel * md =[[HomeModel alloc]initWithXiangQingDic:dicc];
             nameLabel.text=md.titleName;
             timeLabel.text=md.timeName;
-            contentLabel.text=md.contentName;
+            contentLabel.attributedText=[ToolClass HTML:md.contentName];
         }else{
             [LCProgressHUD showMessage:[dic objectForKey:@"msg"]];
         }

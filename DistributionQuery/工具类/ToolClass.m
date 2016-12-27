@@ -351,4 +351,30 @@ BOOL DeleteSingleFile(NSString *filePath){
         }
     }
 }
+#pragma mark --将时间戳按指定格式时间输出,spString为毫秒
++ (NSString*)nsdateToTime:(NSString*)string
+{
+    NSString * ss ;
+    if (string==nil || string.length==0 || [string isEqualToString:@""]) {
+        ss = @"";
+    }else{
+        ss = [string substringToIndex:10];
+    }
+    
+    // NSString*string =@"sdfsfsfsAdfsdf";
+    //截取下标7之前的字符串
+    // NSLog(@"截取的值为：%@",string);
+    // NSString * ss=  [string substringFromIndex:11];//截取下标2之后的字符串
+    //NSLog(@"截取的值为：%@",string);
+    
+    return ss;
+}
+#pragma mark --html解析
++(NSAttributedString * )HTML:(NSString*)string1
+{
+    NSString * htmlString = string1;
+    NSAttributedString * attributedString =[[NSAttributedString alloc]initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    
+    return attributedString;
+}
 @end

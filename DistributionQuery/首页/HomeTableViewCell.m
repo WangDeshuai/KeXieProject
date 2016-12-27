@@ -50,9 +50,9 @@
     _titleLabel.font=[UIFont systemFontOfSize:17];
     _titleLabel.alpha=.7;
     
-    _contentLabel.font=[UIFont systemFontOfSize:14];
+    _contentLabel.font=[UIFont systemFontOfSize:15];
     _contentLabel.alpha=.5;
-    _contentLabel.numberOfLines=0;
+    _contentLabel.numberOfLines=2;
     
     _timeLabel.font=[UIFont systemFontOfSize:14];
     _timeLabel.alpha=.5;
@@ -86,7 +86,7 @@
     .leftEqualToView(_titleLabel)
     .rightSpaceToView(self.contentView,15)
     .topSpaceToView(_titleLabel,10)
-    .autoHeightRatio(0);
+    .heightIs(50);
     
     [self setupAutoHeightWithBottomView:_contentLabel bottomMargin:10];
     
@@ -96,9 +96,9 @@
 -(void)setModel:(HomeModel *)model{
     _model=model;
     _titleLabel.text=model.titleName;
-    _timeLabel.text=model.timeName;
-    _contentLabel.text=@"10月25日，工程师资格国际认证专家项目安排在石家庄市。刚打开了噶看过那噶看过那 ";
-    
+    _timeLabel.text=[ToolClass  nsdateToTime:model.timeName];
+   // _contentLabel.text=@"10月25日，工程师资格国际认证专家项目安排在石家庄市。刚打开了噶看过那噶看过那 ";
+     _contentLabel.attributedText=[ToolClass HTML:model.contentName];
     
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

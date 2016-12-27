@@ -46,5 +46,8 @@
 
 #pragma mark --删除plist文件
 +(void)deleagtePlistName:(NSString*)plistName;
-
+#pragma mark --html解析
++(NSAttributedString * )HTML:(NSString*)string1;
+#pragma mark --将时间戳按指定格式时间输出,spString为毫秒
++ (NSString*)nsdateToTime:(NSString*)string;
 @end

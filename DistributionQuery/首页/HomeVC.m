@@ -131,6 +131,18 @@
         [self.navigationController pushViewController:vc animated:YES];
     }else{
         //退出
+        UIAlertController * alertView =[UIAlertController alertControllerWithTitle:@"温馨提示" message:@"是否确认退出" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * action1 =[UIAlertAction actionWithTitle:@"是" style:0 handler:^(UIAlertAction * _Nonnull action) {
+            [NSUSE_DEFO removeObjectForKey:@"token"];
+            [NSUSE_DEFO synchronize];
+            if ([NSUSE_DEFO objectForKey:@"token"]==nil) {
+                [LCProgressHUD showMessage:@"退出成功"];
+            }
+        }];
+        UIAlertAction * action2 =[UIAlertAction actionWithTitle:@"否" style:0 handler:nil];
+        [alertView addAction:action2];
+        [alertView addAction:action1];
+        [self presentViewController:alertView animated:YES completion:nil];
     }
     
 }

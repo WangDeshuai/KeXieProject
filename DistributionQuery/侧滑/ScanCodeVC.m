@@ -15,7 +15,9 @@
 @end
 
 @implementation ScanCodeVC
-
+-(void)viewWillAppear:(BOOL)animated{
+    _tabelView.tableHeaderView=[self CreatHeadView];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -54,7 +56,12 @@
     UILabel * nameLabel =[UILabel new];
     nameLabel.textColor=[UIColor whiteColor];
     nameLabel.font=[UIFont systemFontOfSize:15];
-    nameLabel.text=@"15032735032";
+    if ([ToolClass isLogin]==NO) {
+        nameLabel.text=@"未登录";
+    }else{
+        nameLabel.text=[NSUSE_DEFO objectForKey:@"account"];
+    }
+   
     [headView sd_addSubviews:@[nameLabel]];
     nameLabel.sd_layout
     .leftSpaceToView(headBtn,15)
@@ -213,8 +220,13 @@
     }else  if (indexPath.section==2) {
         if (indexPath.row==0) {
           //用户登录
-             LoginVC * vc =[LoginVC new];
-            [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:vc animated:YES];
+            if ([ToolClass isLogin]==NO) {
+                LoginVC * vc =[LoginVC new];
+                [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:vc animated:YES];
+            }else{
+                [LCProgressHUD showMessage:@"用户已登录"];
+            }
+            
         }else{
             //用户申请
         }
