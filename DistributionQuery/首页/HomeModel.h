@@ -14,6 +14,7 @@
 @property (nonatomic,copy)NSString * messageID;
 @property (nonatomic,copy)NSString * timeName;
 @property (nonatomic,copy)NSString * contentName;
+@property (nonatomic,assign)NSString * isNew;
 //首页
 -(id)initWithDic:(NSDictionary*)dic;
 //详情页

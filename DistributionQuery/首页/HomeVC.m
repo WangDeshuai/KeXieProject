@@ -19,7 +19,7 @@
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)SDCycleScrollView * cycleScrollView;
 @property(nonatomic,strong)NSArray * menuArr;
-@property (nonatomic, strong) LrdOutputView *outputView;//搜索商品下拉菜单
+@property (nonatomic, strong) LrdOutputView *outputView;//下拉菜单
 @property(nonatomic,strong)NSMutableArray * dataArray;
 @property(nonatomic,assign)int AAA;
 @property (nonatomic, strong) MJRefreshComponent *myRefreshView;
@@ -110,7 +110,7 @@
 -(void)sheZhiBtn:(UIButton*)btn{
     CGFloat x = btn.center.x+20;
     CGFloat y = btn.frame.origin.y + btn.bounds.size.height + 25;
-    _outputView = [[LrdOutputView alloc] initWithDataArray:self.menuArr origin:CGPointMake(x, y) width:150 height:50 direction:kLrdOutputViewDirectionRight];
+    _outputView = [[LrdOutputView alloc] initWithDataArray:self.menuArr origin:CGPointMake(x, y) width:130 height:50 direction:kLrdOutputViewDirectionRight];
     _outputView.alpha=.4;
     _outputView.fount=15;
     _outputView.delegate = self;
@@ -123,7 +123,7 @@
 }
 
 - (void)didSelectedAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"输出看看%lu",indexPath.row);
+   
     if (indexPath.row==0) {
         //关于我们
         AboutMeVC * vc =[AboutMeVC new];
@@ -255,7 +255,7 @@
         }
 
     } error:^(NSError *error) {
-
+        
     }];
 }
 #pragma mark --创建tableview
@@ -311,10 +311,10 @@
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    HomeTableViewCell * cell =[HomeTableViewCell cellWithTableView:tableView CellID:[NSString stringWithFormat:@"%lu%lu",indexPath.section,indexPath.row]];
-    if (indexPath.row==0) {
-        cell.dianImage.hidden=NO;
-    }
+    HomeTableViewCell * cell =[HomeTableViewCell cellWithTableView:tableView CellID:[NSString stringWithFormat:@"%lu%lu",(long)indexPath.section,(long)indexPath.row]];
+//    if (indexPath.row==0) {
+//        cell.dianImage.hidden=NO;
+//    }
     cell.model=_dataArray[indexPath.row];
     return cell;
     

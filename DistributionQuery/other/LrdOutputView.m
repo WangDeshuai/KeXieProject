@@ -98,7 +98,7 @@
     //取出模型
     LrdCellModel *model = [self.dataArray objectAtIndex:indexPath.row];
     cell.textLabel.text = model.title;
-    
+    cell.textLabel.textAlignment=1;
     cell.imageView.image = [UIImage imageNamed:model.imageName];
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
     //cell.selectedBackgroundView.backgroundColor = [UIColor blackColor];

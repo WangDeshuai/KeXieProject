@@ -14,9 +14,9 @@
     if (self) {
         _messageID=[ToolClass isString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"id"]]];
         _titleName=[ToolClass isString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"title"]]];
-       
         _timeName=[ToolClass isString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"savetime"]]];
         _contentName=[ToolClass isString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"content"]]];
+        _isNew=[ToolClass isString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"isNew"]]];
     }
     
     return self;

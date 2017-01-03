@@ -8,8 +8,12 @@
 
 #import "XiangQingVC.h"
 #import "HomeModel.h"
-@interface XiangQingVC ()
-
+#import "LrdOutputView.h"
+@interface XiangQingVC ()<LrdOutputViewDelegate>
+@property (nonatomic, strong) LrdOutputView *outputView;//下拉菜单
+@property(nonatomic,strong)NSArray * menuArr;
+@property(nonatomic,strong)UIButton * btnImage;
+@property(nonatomic,assign)NSInteger  indexPage;
 @end
 
 @implementation XiangQingVC
@@ -24,9 +28,50 @@
     // Do any additional setup after loading the view.
     self.title=@"公告详情";
     self.view.backgroundColor=COLOR;
-    
+    if (_tagg==2) {
+        //右按钮
+        UIButton * rightBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+        rightBtn.frame=CGRectMake(0, 0, 70, 40);
+        [rightBtn setTitle:@"审核方式" forState:0];
+        rightBtn.titleLabel.font=[UIFont systemFontOfSize:15];
+        UIBarButtonItem * rightBtn2 =[[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+        [rightBtn addTarget:self action:@selector(sheZhiBtn:) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.rightBarButtonItems=@[rightBtn2];
+        //下拉菜单
+        LrdCellModel *one = [[LrdCellModel alloc] initWithTitle:@"初审" imageName:@"11"];
+        LrdCellModel *two = [[LrdCellModel alloc] initWithTitle:@"终审" imageName:@"11"];
+        self.menuArr = @[one, two];
+    }
     [self CreatView];
 }
+#pragma mark --右按钮设置
+-(void)sheZhiBtn:(UIButton*)btn{
+    CGFloat x = btn.center.x+20;
+    CGFloat y = btn.frame.origin.y + btn.bounds.size.height + 25;
+    _outputView = [[LrdOutputView alloc] initWithDataArray:self.menuArr origin:CGPointMake(x, y) width:90 height:40 direction:kLrdOutputViewDirectionRight];
+    _outputView.alpha=.4;
+    _outputView.fount=15;
+    _outputView.delegate = self;
+    _outputView.dismissOperation = ^(){
+        //设置成nil，以防内存泄露
+        _outputView = nil;
+    };
+    [_outputView pop];
+    
+}
+
+- (void)didSelectedAtIndexPath:(NSIndexPath *)indexPath {
+    _indexPage=indexPath.row;
+    if (indexPath.row==0) {
+        //关于我们
+          [_btnImage setImage:[UIImage imageNamed:@"chushen"] forState:0];
+    }else{
+        //退出
+          [_btnImage setImage:[UIImage imageNamed:@"zhongsheng"] forState:0];
+    }
+    
+}
+
 
 
 -(void)CreatView{
@@ -38,17 +83,37 @@
     .rightSpaceToView(self.view,0)
     .topSpaceToView(self.view,10)
     .heightIs(150);
+    if (_tagg==2) {
+        _btnImage=[UIButton buttonWithType:UIButtonTypeCustom];
+        [_btnImage setImage:[UIImage imageNamed:@"chushen"] forState:0];
+        [view1 sd_addSubviews:@[_btnImage]];//56  62
+        _btnImage.sd_layout
+        .leftSpaceToView(view1,10)
+        .topSpaceToView(view1,0)
+        .widthIs(56/2)
+        .heightIs(62/2);
+    }
+   
     //title
     UILabel * nameLabel =[UILabel new];
     nameLabel.text=@"科技创新与企业发展专家论坛";
     nameLabel.numberOfLines=0;
     nameLabel.font=[UIFont systemFontOfSize:19];
     [view1 sd_addSubviews:@[nameLabel]];
-    nameLabel.sd_layout
-    .leftSpaceToView(view1,15)
-    .rightSpaceToView(view1,15)
-    .topSpaceToView(view1,20)
-    .autoHeightRatio(0);
+    if (_tagg==2) {
+        nameLabel.sd_layout
+        .leftSpaceToView(view1,15)
+        .rightSpaceToView(view1,15)
+        .topSpaceToView(_btnImage,10)
+        .autoHeightRatio(0);
+    }else{
+        nameLabel.sd_layout
+        .leftSpaceToView(view1,15)
+        .rightSpaceToView(view1,15)
+        .topSpaceToView(view1,20)
+        .autoHeightRatio(0);
+    }
+    
     //time
     UILabel * timeLabel =[UILabel new];
     timeLabel.backgroundColor=COLOR;
@@ -147,7 +212,7 @@
 -(void)buttonClinck:(UIButton*)btn{
     if (btn.tag==0) {
         //不通过
-        [Engine  appShenHeWenZhangMessageID:_messageID ShenHeStype:@"-1" success:^(NSDictionary *dic) {
+        [Engine  appShenHeWenZhangMessageID:_messageID ShenHeStype:@"-1" audit_type:[NSString stringWithFormat:@"%ld",(long)_indexPage+1] success:^(NSDictionary *dic) {
             [LCProgressHUD showMessage:[dic objectForKey:@"msg"]];
         } error:^(NSError *error) {
             
@@ -157,7 +222,8 @@
         //通过
         UIAlertController * actionView =[UIAlertController alertControllerWithTitle:@"温馨提示" message:@"是否确认审核通过" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction * action1 =[UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [Engine  appShenHeWenZhangMessageID:_messageID ShenHeStype:@"1" success:^(NSDictionary *dic) {
+            //1初审，2终审
+            [Engine  appShenHeWenZhangMessageID:_messageID ShenHeStype:@"1" audit_type:[NSString stringWithFormat:@"%ld",(long)_indexPage+1] success:^(NSDictionary *dic) {
                 [LCProgressHUD showMessage:[dic objectForKey:@"msg"]];
             } error:^(NSError *error) {
                 
@@ -169,8 +235,7 @@
         [actionView addAction:action2];
         [actionView addAction:action1];
         [self presentViewController:actionView animated:YES completion:nil];
-//
-        
+
     }
 }
 

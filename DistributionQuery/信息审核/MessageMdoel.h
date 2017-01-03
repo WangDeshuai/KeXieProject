@@ -13,5 +13,6 @@
 @property (nonatomic,copy)NSString * messageID;
 @property (nonatomic,copy)NSString * timeName;
 @property (nonatomic,copy)NSString * contentName;
+@property (nonatomic,assign)NSString * isNew;
 -(id)initWithDic:(NSDictionary*)dic;
 @end

@@ -9,12 +9,15 @@
 #import "MessageShenHeVC.h"
 #import "MessageShenHeCell.h"
 #import "MessageMdoel.h"
+
 #import "XiangQingVC.h"
 @interface MessageShenHeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)NSMutableArray * dataArray;
 @property(nonatomic,assign)int AAA;
 @property (nonatomic, strong) MJRefreshComponent *myRefreshView;
+
+
 @end
 
 @implementation MessageShenHeVC
@@ -25,8 +28,12 @@
     self.view.backgroundColor=[UIColor whiteColor];
     _dataArray=[NSMutableArray new];
     self.title=@"信息审核";
+   
     [self CreatTabelView];
 }
+
+
+
 -(void)shujuDataPage:(NSString*)page{
     [Engine chaXunAppWenZhangPage:page success:^(NSDictionary *dic) {
         NSString * item1 =[NSString stringWithFormat:@"%@",[dic objectForKey:@"code"]];

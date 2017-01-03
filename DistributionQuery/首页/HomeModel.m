@@ -17,6 +17,7 @@
         _urlStr=[ToolClass isString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"slt"]]];
         _timeName=[ToolClass isString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"savetime"]]];
          _contentName=[ToolClass isString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"content"]]];
+        _isNew=[ToolClass isString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"isNew"]]];
     }
     
     return self;

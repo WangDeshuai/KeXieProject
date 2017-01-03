@@ -702,12 +702,12 @@
 		8FE26B171E120449005751BF /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
-				8FE26B181E120449005751BF /* HomeModel.h */,
-				8FE26B191E120449005751BF /* HomeModel.m */,
-				8FE26B1A1E120449005751BF /* HomeTableViewCell.h */,
-				8FE26B1B1E120449005751BF /* HomeTableViewCell.m */,
 				8FE26B1C1E120449005751BF /* HomeVC.h */,
 				8FE26B1D1E120449005751BF /* HomeVC.m */,
+				8FE26B1A1E120449005751BF /* HomeTableViewCell.h */,
+				8FE26B1B1E120449005751BF /* HomeTableViewCell.m */,
+				8FE26B181E120449005751BF /* HomeModel.h */,
+				8FE26B191E120449005751BF /* HomeModel.m */,
 			);
 			path = "首页";
 			sourceTree = "<group>";
@@ -745,12 +745,12 @@
 		8FE26B301E1204E5005751BF /* 信息审核 */ = {
 			isa = PBXGroup;
 			children = (
-				8FE26B311E1204E5005751BF /* MessageMdoel.h */,
-				8FE26B321E1204E5005751BF /* MessageMdoel.m */,
-				8FE26B331E1204E5005751BF /* MessageShenHeCell.h */,
-				8FE26B341E1204E5005751BF /* MessageShenHeCell.m */,
 				8FE26B351E1204E5005751BF /* MessageShenHeVC.h */,
 				8FE26B361E1204E5005751BF /* MessageShenHeVC.m */,
+				8FE26B331E1204E5005751BF /* MessageShenHeCell.h */,
+				8FE26B341E1204E5005751BF /* MessageShenHeCell.m */,
+				8FE26B311E1204E5005751BF /* MessageMdoel.h */,
+				8FE26B321E1204E5005751BF /* MessageMdoel.m */,
 			);
 			path = "信息审核";
 			sourceTree = "<group>";
@@ -856,8 +856,7 @@
 				TargetAttributes = {
 					8F02FE111DA883FE0051EDFC = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 232982DK86;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					8F02FE2A1DA883FE0051EDFC = {
 						CreatedOnToolsVersion = 8.0;
@@ -1137,15 +1136,20 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = 232982DK86;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: guo haodan (W6476936V6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: guo haodan (W6476936V6)";
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Volumes/DISK0S3/KeXieProject/DistributionQuery/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/DistributionQuery/PrefixHeader.pch\"";
 				INFOPLIST_FILE = DistributionQuery/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
-				PRODUCT_BUNDLE_IDENTIFIER = XY.DistributionQuery;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kexie.xinyingapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f7886718-6e45-403c-96be-d60d0a2b93f4";
+				PROVISIONING_PROFILE_SPECIFIER = KeXie_Test;
 			};
 			name = Debug;
 		};
@@ -1155,15 +1159,20 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				DEVELOPMENT_TEAM = 232982DK86;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: guo haodan (W6476936V6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: guo haodan (W6476936V6)";
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = /Volumes/DISK0S3/KeXieProject/DistributionQuery/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/DistributionQuery/PrefixHeader.pch\"";
 				INFOPLIST_FILE = DistributionQuery/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRIVATE_HEADERS_FOLDER_PATH = "$(CONTENTS_FOLDER_PATH)/PrivateHeaders";
-				PRODUCT_BUNDLE_IDENTIFIER = XY.DistributionQuery;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kexie.xinyingapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f7886718-6e45-403c-96be-d60d0a2b93f4";
+				PROVISIONING_PROFILE_SPECIFIER = KeXie_Test;
 			};
 			name = Release;
 		};

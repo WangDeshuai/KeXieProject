@@ -131,7 +131,7 @@
     
 }
 #pragma mark --6app 审核文章
-+(void)appShenHeWenZhangMessageID:(NSString*)idd  ShenHeStype:(NSString*)stype success:(SuccessBlock)aSuccess error:(ErrorBlock)aError{
++(void)appShenHeWenZhangMessageID:(NSString*)idd  ShenHeStype:(NSString*)stype audit_type:(NSString*)typee success:(SuccessBlock)aSuccess error:(ErrorBlock)aError{
     
     NSString * urlStr =[NSString stringWithFormat:@"%@product/app_auditProduct.action",SER_VICE];
     NSMutableDictionary * dic =[NSMutableDictionary new];
@@ -140,6 +140,7 @@
     }
     [dic setObject:idd forKey:@"product_id"];
     [dic setObject:stype forKey:@"audit_status"];
+     [dic setObject:typee forKey:@"audit_type"];
     AFHTTPRequestOperationManager * manager =[AFHTTPRequestOperationManager manager];
     
     [manager POST:urlStr parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {

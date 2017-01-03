@@ -27,6 +27,6 @@ typedef void (^ErrorBlock)(NSError*error);
 +(void)chaXunAppWenZhangPage:(NSString*)page success:(SuccessBlock)aSuccess error:(ErrorBlock)aError;
 
 #pragma mark --6app 审核文章
-+(void)appShenHeWenZhangMessageID:(NSString*)idd  ShenHeStype:(NSString*)stype success:(SuccessBlock)aSuccess error:(ErrorBlock)aError;
++(void)appShenHeWenZhangMessageID:(NSString*)idd  ShenHeStype:(NSString*)stype audit_type:(NSString*)typee success:(SuccessBlock)aSuccess error:(ErrorBlock)aError;
 
 @end
