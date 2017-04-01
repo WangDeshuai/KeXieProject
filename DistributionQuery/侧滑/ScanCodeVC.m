@@ -45,6 +45,7 @@
     
     UIButton * headBtn =[UIButton buttonWithType:UIButtonTypeCustom];
     [headBtn setBackgroundImage:[UIImage imageNamed:@"home_person"] forState:0];
+    [headBtn addTarget:self action:@selector(loginBtn) forControlEvents:UIControlEventTouchUpInside];
     headBtn.sd_cornerRadius=@(106/4);
     [headView sd_addSubviews:@[headBtn]];
     headBtn.sd_layout
@@ -61,7 +62,9 @@
     }else{
         nameLabel.text=[NSUSE_DEFO objectForKey:@"account"];
     }
-   
+    nameLabel.userInteractionEnabled=YES;
+    UITapGestureRecognizer * tap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(loginBtn)];
+    [nameLabel addGestureRecognizer:tap];
     [headView sd_addSubviews:@[nameLabel]];
     nameLabel.sd_layout
     .leftSpaceToView(headBtn,15)
@@ -70,6 +73,26 @@
     [nameLabel setupAutoWidthWithRightView:headView rightMargin:20];
     
     return headView;
+}
+-(void)loginBtn{
+    
+    if ([ToolClass isLogin]==NO) {
+        LoginVC * vc =[LoginVC new];
+        [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:vc animated:YES];
+    }else{
+        
+        HomeVC * vc =[HomeVC new];
+        [[NSUserDefaults standardUserDefaults] setObject:@"退出" forKey:@"退出"];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        BaseNavigationController *navController = [[BaseNavigationController alloc] initWithRootViewController:vc];
+        [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:navController animated:YES];
+        
+        
+        
+        
+        
+
+    }
 }
 #pragma mark --创建数据源
 -(void)CreatData{
@@ -141,12 +164,33 @@
     .bottomSpaceToView(cell,1)
     .widthIs(350/2)
     .heightIs(1);
-    if (indexPath.section==1) {
-        lineImage.hidden=NO;
-    }
-    else if (indexPath.section==0 || indexPath.section==2){
+//    if (indexPath.section==1) {
+//        lineImage.hidden=NO;
+//    }
+//    else if (indexPath.section==0 || indexPath.section==2){
+//        if (indexPath.row==1) {
+//            lineImage.hidden=NO;
+//        }
+//    }
+    
+    if (indexPath.section==0) {
         if (indexPath.row==1) {
             lineImage.hidden=NO;
+        }
+    }else if (indexPath.section==1){
+         lineImage.hidden=NO;
+    }else if (indexPath.section==2){
+        if (indexPath.row==1) {
+            //用户申请
+            lineImage.hidden=NO;
+            textlabel.textColor=[UIColor lightGrayColor];
+            cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        }
+    }else{
+        if (indexPath.row==0) {
+            //通讯录
+           textlabel.textColor=[UIColor lightGrayColor];
+           cell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
     }
     
@@ -173,7 +217,7 @@
     UIView * bgView =[UIView new];
     bgView.backgroundColor=[UIColor clearColor];
     NSArray * imageArr =@[@"home_gz",@"home_gg",@"home_gl",@"home_yy"];
-    NSArray * titleArr =@[@"科协工作",@"公共服务",@"用户管理",@"我的应用"];
+    NSArray * titleArr =@[@"科协工作",@"公众服务",@"用户管理",@"我的应用"];
     
     //图片
     UIImageView * imageview =[[UIImageView alloc]init];
@@ -205,11 +249,14 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [_tabelView deselectRowAtIndexPath:indexPath animated:YES];
+//    [_tabelView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section==0) {
         if (indexPath.row==0) {
             //科协动态
+            HomeVC * vc =[HomeVC new];
+            BaseNavigationController *navController = [[BaseNavigationController alloc] initWithRootViewController:vc];
+            [(DDMenuController *)[UIApplication sharedApplication].delegate.window.rootViewController setRootController:navController animated:YES];
         }else{
             //意见建议
             MyVC * vc =[MyVC new];

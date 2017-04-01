@@ -45,7 +45,27 @@
 
 
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    NSString * str =[[NSUserDefaults standardUserDefaults]objectForKey:@"退出"];
+    if (str) {
+        UIAlertController * alertView =[UIAlertController alertControllerWithTitle:@"温馨提示" message:@"是否确认退出" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * action1 =[UIAlertAction actionWithTitle:@"是" style:0 handler:^(UIAlertAction * _Nonnull action) {
+            [NSUSE_DEFO removeObjectForKey:@"token"];
+            [NSUSE_DEFO removeObjectForKey:@"退出"];
+            [NSUSE_DEFO synchronize];
+            if ([NSUSE_DEFO objectForKey:@"token"]==nil) {
+                [LCProgressHUD showMessage:@"退出成功"];
+            }
+        }];
+        UIAlertAction * action2 =[UIAlertAction actionWithTitle:@"否" style:0 handler:nil];
+        [alertView addAction:action2];
+        [alertView addAction:action1];
+        [NSUSE_DEFO removeObjectForKey:@"退出"];
+        [NSUSE_DEFO synchronize];
+        [self presentViewController:alertView animated:YES completion:nil];
+    }
+}
 
 // //显示tabbar
 //- (void)showTabBar
@@ -222,7 +242,7 @@
     
     
     [_tableView reloadData];
-    _tableView.tableHeaderView=[self CreatHeadView];
+  //  _tableView.tableHeaderView=[self CreatHeadView];
 }
 
 #pragma mark --数据解析
@@ -265,7 +285,7 @@
     }
     _tableView.dataSource=self;
     _tableView.delegate=self;
-    _tableView.tableHeaderView=[self CreatHeadView];
+    //_tableView.tableHeaderView=[self CreatHeadView];
     _tableView.tableFooterView=[UIView new];
     [self.view addSubview:_tableView];
     
@@ -430,8 +450,8 @@
         // NSLog(@">>>>>  %ld", (long)index);
         
     };
-    NSLog(@"看看个数%lu",_dataArray.count);
-    if (_dataArray.count==0) {
+
+       if (_dataArray.count==0) {
         return view2;
     }else{
         if (_lastBtn.tag==2){
@@ -439,7 +459,7 @@
         }
             NSMutableArray * arrimage =[NSMutableArray new];
             NSMutableArray * titleAr =[NSMutableArray new];
-            for (int i =0; i<4; i++) {
+            for (int i =0; i<_dataArray.count; i++) {
                 HomeModel * md =_dataArray[i];
                 [arrimage addObject:md.urlStr];
                 [titleAr addObject:md.titleName];
@@ -449,6 +469,16 @@
                 _cycleScrollView.imageURLStringsGroup = arrimage;
             });
              _cycleScrollView.titlesGroup=titleAr;
+        
+        _cycleScrollView.clickItemOperationBlock = ^(NSInteger index) {
+            HomeModel * md=_dataArray[index];
+            XiangQingVC * vc =[XiangQingVC new];
+            vc.tagg=1;
+            vc.messageID=md.messageID;
+            [self.navigationController pushViewController:vc animated:YES];
+            
+        };
+        
     }
 
     

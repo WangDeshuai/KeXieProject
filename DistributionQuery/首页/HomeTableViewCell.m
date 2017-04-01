@@ -99,10 +99,10 @@
     _timeLabel.text=[ToolClass  nsdateToTime:model.timeName];
    // _contentLabel.text=@"10月25日，工程师资格国际认证专家项目安排在石家庄市。刚打开了噶看过那噶看过那 ";
     if ([model.isNew isEqualToString:@"0"]) {
-        //不是新文章不带点
+        //不是新文章不带点fase
           _dianImage.hidden=YES;
     }else{
-        //是新文章
+        //是新文章ture
           _dianImage.hidden=NO;
     }
      _contentLabel.attributedText=[ToolClass HTML:model.contentName];

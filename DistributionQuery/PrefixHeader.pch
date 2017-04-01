@@ -17,7 +17,7 @@
  */
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
-#define SER_VICE  @"http://192.168.1.103:8080/Kexie/"
+#define SER_VICE  @"http://221.192.132.27:8080/Kexie/"
 #define JXColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 #define TITLE_FOUNT 18
 #define COLOR [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1]

@@ -101,7 +101,7 @@
 //密码
     _pwdText=[UITextField new];
     _pwdText.placeholder=@"请输入密码";
-    _pwdText.keyboardType=UIKeyboardTypePhonePad;
+//    _pwdText.keyboardType=UIKeyboardTypePhonePad;
     _pwdText.textColor=[UIColor whiteColor];
     _pwdText.font=[UIFont systemFontOfSize:15];
     _pwdText.leftView =[self imageViewNameStr:@"login_ys"];

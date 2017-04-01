@@ -9,7 +9,7 @@
 #import "XiangQingVC.h"
 #import "HomeModel.h"
 #import "LrdOutputView.h"
-@interface XiangQingVC ()<LrdOutputViewDelegate>
+@interface XiangQingVC ()<LrdOutputViewDelegate,UIWebViewDelegate>
 @property (nonatomic, strong) LrdOutputView *outputView;//下拉菜单
 @property(nonatomic,strong)NSArray * menuArr;
 @property(nonatomic,strong)UIButton * btnImage;
@@ -149,12 +149,13 @@
 
     }
     
-    UITextView * contentLabel =[UITextView new];
+    UIWebView * contentLabel =[UIWebView new];
   //  contentLabel.backgroundColor=[UIColor redColor];
-    contentLabel.text=@"萨拉垃圾发电看了GV克里斯GV卡拉卡打卡看吧的vavasaafa萨拉垃圾发电看了GV克里斯GV卡拉卡打卡看吧的vavasaafa萨拉垃圾发电看了GV克里斯GV卡拉卡打卡看吧的vavasaafa";
+   // contentLabel.text=@"萨拉垃圾发电看了GV克里斯GV卡拉卡打卡看吧的vavasaafa萨拉垃圾发电看了GV克里斯GV卡拉卡打卡看吧的vavasaafa萨拉垃圾发电看了GV克里斯GV卡拉卡打卡看吧的vavasaafa";
     contentLabel.alpha=.6;
-    contentLabel.editable=NO;
-    contentLabel.font=[UIFont systemFontOfSize:15];
+    contentLabel.delegate=self;
+   // contentLabel.editable=NO;
+   // contentLabel.font=[UIFont systemFontOfSize:15];
     [view2 sd_addSubviews:@[contentLabel]];
     contentLabel.sd_layout
     .leftEqualToView(nameLabel)
@@ -169,7 +170,10 @@
             HomeModel * md =[[HomeModel alloc]initWithXiangQingDic:dicc];
             nameLabel.text=md.titleName;
             timeLabel.text=md.timeName;
-            contentLabel.attributedText=[ToolClass HTML:md.contentName];
+            NSString *html_str = md.contentName;
+//            contentLabel.scalesPageToFit = YES;
+            [contentLabel loadHTMLString:html_str baseURL:nil];
+           
         }else{
             [LCProgressHUD showMessage:[dic objectForKey:@"msg"]];
         }
@@ -209,6 +213,20 @@
     
     
 }
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //NSString *meta = [NSString stringWithFormat:@"document.getElementsByName(\"viewport\")[0].content = \"width=%f, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"", webView.frame.size.width];
+    
+    for (int i =0; i<20; i++) {
+        NSString *meta = [NSString stringWithFormat:@"document.getElementsByTagName('img')[%d].style.width = '100%%'", i];
+         [webView stringByEvaluatingJavaScriptFromString:meta];
+    }
+   
+    
+    
+}
+
+
 -(void)buttonClinck:(UIButton*)btn{
     if (btn.tag==0) {
         //不通过
